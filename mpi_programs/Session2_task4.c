@@ -1,3 +1,15 @@
+/*Parallel Average
+Steps:
+Rank 0 reads N numbers
+Broadcast N
+Scatter data
+Each process computes local sum
+Reduce to global sum
+Rank 0 computes average*/
+
+
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <mpi.h>
