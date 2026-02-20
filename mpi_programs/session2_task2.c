@@ -1,3 +1,10 @@
+/*Ring Communication
+Each process sends its rank to the next process:
+rank → (rank+1) % nprocs
+Each process receives from previous rank and prints:
+Rank X received Y */
+
+
 #include <stdio.h>
 #include <mpi.h>
 
