@@ -21,3 +21,10 @@
   - Parallel average and vector addition  
   - Matrix row distribution and matrix-vector multiplication  
   - Parallel maximum computation  
+
+## Week 
+
+- Implemented basic SLURM automation workflow
+- Initiated design and setup of benchmark framework structure
+
+
