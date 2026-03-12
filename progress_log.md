@@ -22,9 +22,16 @@
   - Matrix row distribution and matrix-vector multiplication  
   - Parallel maximum computation  
 
-## Week 
+## Week 3
 
 - Implemented basic SLURM automation workflow
 - Initiated design and setup of benchmark framework structure
+
+## Week 4
+
+- Completed the design of benchmark framework task
+- Understood the OpenMP and run programs on the same
+- started the introduction session to benchmarking
+
 
 
