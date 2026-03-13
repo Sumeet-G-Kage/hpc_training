@@ -10,3 +10,5 @@ This repository contains my learning artifacts and practice work during HPC trai
 - mpi_reports/ → MPI task reports
 - task_reports/ → General task reports
 - progress_log.md → Weekly learning progress
+- slurm_automation/ → slurm install automation scripts
+- benchmark-framework/ → framework building task  
