@@ -9,7 +9,7 @@ import numpy as np
 credentials, PROJECT_ID = google.auth.default()
 
 if PROJECT_ID is None:
-    raise Exception("❌ Project ID not found. Set GOOGLE_CLOUD_PROJECT")
+    raise Exception(" Project ID not found. Set GOOGLE_CLOUD_PROJECT")
 
 # ---------------------------------
 # GET ALL UNIQUE MACHINE TYPES (AGGREGATED)
@@ -33,7 +33,7 @@ def get_all_machine_data():
                     "memory_gb": mt.memory_mb / 1024
                 }
     
-    print(f"✅ Found {len(region_data)} regions.")
+    print(f" Found {len(region_data)} regions.")
     return {reg: list(m.values()) for reg, m in region_data.items()}
 
 # ---------------------------------
@@ -138,7 +138,7 @@ def save_to_hdf5(data):
             grp.create_dataset("Instance_Pricing", data=np.array([i["price"] for i in items], dtype="f4"))
             grp.create_dataset("Memory", data=np.array([i["memory_gb"] for i in items], dtype="f4"))
             grp.create_dataset("vCPU", data=np.array([i["vcpu"] for i in items], dtype="i4"))
-    print(f"✅ Created: {filename}")
+    print(f" Created: {filename}")
 
 def main():
     m = get_all_machine_data()
