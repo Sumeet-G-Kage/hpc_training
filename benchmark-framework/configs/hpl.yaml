@@ -1,0 +1,51 @@
+compilers:
+  aocc:
+    modules:
+      - aocc/5.1
+      - aocl/5.2
+      - openmpi/5.0.9-aocc
+    arch: AMD
+    cc: mpicc
+    linker: mpicc
+    mpi_dir: /home/sumeet/openmpi-aocc
+    la_dir: /opt/AMD/aocl/5.2.0/aocc/lib_LP64
+    la_inc: /opt/AMD/aocl/5.2.0/aocc/include_LP64
+    la_lib: -lblis-mt -lm
+
+  intel:
+    modules:
+      - intel/2025
+    arch: INTEL
+    cc: mpicc
+    linker: mpicc
+    mpi_dir: /opt/intel/oneapi/mpi/latest
+    la_dir: /opt/intel/oneapi/mkl/latest/lib/intel64
+    la_inc: /opt/intel/oneapi/mkl/latest/include
+    la_lib: -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -lm
+
+hpl:
+  version: "2.3"
+
+  # Runtime parameters — all overridable via CLI flags
+  np:  1      # total MPI ranks (must equal P * Q)
+  threads: 1  # OMP_NUM_THREADS per MPI rank
+  N:   10000  # problem size
+  NB:  256    # block size
+  P:   1      # process grid rows
+  Q:   1      # process grid cols
+
+  # HPL.dat tuning parameters
+  dat:
+    threshold:       16.0
+    pfact:           2     # panel fact  (0=left, 1=Crout, 2=Right)
+    nbmin:           4     # recursive stopping criterium
+    ndiv:            2     # panels in recursion
+    rfact:           1     # recursive panel fact (0=left, 1=Crout, 2=Right)
+    bcast:           1     # broadcast   (0=1rg,1=1rM,2=2rg,3=2rM,4=Lng,5=LnM)
+    depth:           1     # lookahead depth
+    swap:            2     # swap method (0=bin-exch,1=long,2=mix)
+    swap_threshold:  64
+    l1:              0     # L1 in (0=transposed, 1=no-transposed) form
+    u:               0     # U  in (0=transposed, 1=no-transposed) form
+    equilibration:   1     # (0=no, 1=yes)
+    alignment:       8     # memory alignment in double (> 0)

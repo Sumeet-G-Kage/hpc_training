@@ -1,91 +1,77 @@
 import argparse
-import subprocess
+import importlib
+import sys
 import os
 
-parser = argparse.ArgumentParser()
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, BASE_DIR)
 
+parser = argparse.ArgumentParser()
 parser.add_argument("--component")
+parser.add_argument("--app")
 parser.add_argument("--version")
+
+# Shared
+parser.add_argument("--compiler")
+
+# STREAM
+parser.add_argument("--threads", type=int)
+
+# HPL
+parser.add_argument("--np",  type=int)
+parser.add_argument("--N",   type=int)
+parser.add_argument("--NB",  type=int)
+parser.add_argument("--P",   type=int)
+parser.add_argument("--Q",   type=int)
 
 args = parser.parse_args()
 
-BUILD_DIR = "build"
 
-# ------------------------------------------------
-# Build a specific component/version
-# ------------------------------------------------
-
-if args.component and args.version:
-
-    comp_dir = f"{BUILD_DIR}/{args.component}"
-
-    if not os.path.exists(comp_dir):
-        print(f"[FRAMEWORK] Unknown component: {args.component}")
-        exit(1)
-
-    print(f"[FRAMEWORK] Building {args.component} {args.version}")
-
-    subprocess.run(
-        ["bash", f"{comp_dir}/build.sh", args.version],
-        check=True
-    )
-
-    exit()
+def handle_component(component, version):
+    try:
+        module = importlib.import_module(f"components.{component}.{component}")
+        module.run(version=version)
+    except ModuleNotFoundError:
+        print(f"[ERROR] Component '{component}' not found")
+        sys.exit(1)
 
 
-# ------------------------------------------------
-# Build all versions of one component
-# ------------------------------------------------
+def handle_app(app):
+    try:
+        module = importlib.import_module(f"apps.{app}.{app}")
+
+        if app == "stream":
+            module.run(
+                compiler=args.compiler,
+                threads=args.threads
+            )
+        elif app == "hpl":
+            module.run(
+                compiler=args.compiler,
+                threads=args.threads,
+                np=args.np,
+                N=args.N,
+                NB=args.NB,
+                P=args.P,
+                Q=args.Q
+            )
+        else:
+            # Generic fallback — pass whatever is available
+            module.run(
+                compiler=args.compiler,
+                threads=args.threads
+            )
+
+    except Exception as e:
+        print(f"[ERROR] Failed to load or run app '{app}'")
+        print("Actual error:", e)
+        sys.exit(1)
+
 
 if args.component:
-
-    comp_dir = f"{BUILD_DIR}/{args.component}"
-    versions_file = f"{comp_dir}/versions.conf"
-
-    if not os.path.exists(versions_file):
-        print(f"[FRAMEWORK] No versions.conf for {args.component}")
-        exit(1)
-
-    with open(versions_file) as f:
-        versions = [v.strip() for v in f if v.strip()]
-
-    for version in versions:
-
-        print(f"[FRAMEWORK] Building {args.component} {version}")
-
-        subprocess.run(
-            ["bash", f"{comp_dir}/build.sh", version],
-            check=True
-        )
-
-    print("[FRAMEWORK] Build stage completed")
-    exit()
-
-
-# ------------------------------------------------
-# Build all components
-# ------------------------------------------------
-
-components = os.listdir(BUILD_DIR)
-
-for component in components:
-
-    comp_dir = f"{BUILD_DIR}/{component}"
-    versions_file = f"{comp_dir}/versions.conf"
-
-    if not os.path.exists(versions_file):
-        continue
-
-    with open(versions_file) as f:
-        versions = [v.strip() for v in f if v.strip()]
-
-    for version in versions:
-
-        print(f"[FRAMEWORK] Building {component} {version}")
-
-        subprocess.run(
-            ["bash", f"{comp_dir}/build.sh", version],
-            check=True
-        )
-
-print("[FRAMEWORK] Build stage completed")
+    handle_component(args.component, args.version)
+elif args.app:
+    handle_app(args.app)
+else:
+    print("[ERROR] Provide --component or --app")
+    sys.exit(1)

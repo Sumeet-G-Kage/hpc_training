@@ -1,0 +1,1 @@
+/home/sumeet/aocc-compiler-5.1.0/bin/clang CMakeFiles/stream_c.exe.dir/stream.c.o -o stream_c.exe 

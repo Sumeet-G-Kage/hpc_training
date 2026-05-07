@@ -1,0 +1,7 @@
+/home/sumeet/benchmark-framework/builds/stream/build/CMakeFiles/stream_c.exe.dir
+/home/sumeet/benchmark-framework/builds/stream/build/CMakeFiles/edit_cache.dir
+/home/sumeet/benchmark-framework/builds/stream/build/CMakeFiles/rebuild_cache.dir
+/home/sumeet/benchmark-framework/builds/stream/build/CMakeFiles/list_install_components.dir
+/home/sumeet/benchmark-framework/builds/stream/build/CMakeFiles/install.dir
+/home/sumeet/benchmark-framework/builds/stream/build/CMakeFiles/install/local.dir
+/home/sumeet/benchmark-framework/builds/stream/build/CMakeFiles/install/strip.dir

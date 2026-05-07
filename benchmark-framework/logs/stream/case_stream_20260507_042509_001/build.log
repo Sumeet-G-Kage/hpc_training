@@ -1,0 +1,17 @@
+[JOB] Starting stream_build_aocc
+Cloning into '/home/sumeet/benchmark-framework/builds/stream/src/STREAM'...
+-- The C compiler identification is Clang 17.0.6
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /home/sumeet/aocc-compiler-5.1.0/bin/clang - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Configuring done (9.7s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/sumeet/benchmark-framework/builds/stream/build
+[ 50%] Building C object CMakeFiles/stream_c.exe.dir/stream.c.o
+[100%] Linking C executable stream_c.exe
+[100%] Built target stream_c.exe
+-- Install configuration: ""
+-- Installing: /home/sumeet/benchmark-framework/builds/stream/install/bin/stream_c.exe
+[JOB] Completed

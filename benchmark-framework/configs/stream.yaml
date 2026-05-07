@@ -1,0 +1,26 @@
+compilers:
+  gcc:
+    modules: []
+    env:
+      CC: gcc
+      CXX: g++
+
+  aocc:
+    modules:
+      - aocc/5.1
+      - aocl/5.2
+      - openmpi/5.0.9-aocc
+    env:
+      CC: clang
+      CXX: clang++
+
+  intel:
+    modules:
+      - intel/2025
+    env:
+      CC: icc
+      CXX: icpc
+
+stream:
+  array_size: 80000000
+  ntimes: 10
