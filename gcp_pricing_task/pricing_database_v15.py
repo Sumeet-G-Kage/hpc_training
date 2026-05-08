@@ -45,7 +45,7 @@ def get_pricing():
     services = client.list_services()
     compute_service = next(s.name for s in services if "Compute Engine" in s.display_name)
 
-    pricing_map = {} # Structured as: pricing_map[region][family][resource_type]
+    pricing_map = {} 
 
     for sku in client.list_skus(parent=compute_service):
         desc = sku.description.lower()
